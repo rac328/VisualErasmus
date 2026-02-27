@@ -58,8 +58,8 @@ def displayMosaico(numPhotos):
     """
     Crea un mosaico 2x2 con imagen1 e imagen2 redimensionadas al mismo tamaño.
     """
-    path1 = os.path.join('Photos', 'imagen1.jpg')
-    path2 = os.path.join('Photos', 'imagen2.jpg')
+    path1 = os.path.join('../Photos', 'imagen1.jpg')
+    path2 = os.path.join('../Photos', 'imagen2.jpg')
     img = cv.imread(path1, cv.IMREAD_COLOR)
     img1 = cv.imread(path2, cv.IMREAD_COLOR)
     if img is None:
@@ -116,7 +116,7 @@ def displayImage(img):
 
 
 def displayIMG1():
-    path = os.path.join('Photos', 'imagen1.jpg')
+    path = os.path.join('../Photos', 'imagen1.jpg')
     img = cv.imread(path, cv.IMREAD_COLOR)
     if img is None:
         raise FileNotFoundError(f"Imagen no encontrada: `{path}`")

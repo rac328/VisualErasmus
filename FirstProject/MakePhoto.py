@@ -3,7 +3,7 @@ import os
 from pynput import keyboard
 from ximea import xiapi
 
-output_dir = "Photos"
+output_dir = "../Photos"
 cam = xiapi.Camera()
 cam.open_device()
 cam.set_exposure(10000)  #microseconds
