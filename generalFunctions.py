@@ -13,12 +13,13 @@ def displayImage(img):
     if backend.startswith('agg') or not has_display:
         # No hay GUI: no mostrar y no guardar preview
         print(f"Entorno sin servidor gráfico (`{matplotlib.get_backend()}`) — no se mostrará ni se guardará ninguna vista previa.")
+
         return
 
     # Entorno gráfico: convertir BGR->RGB y mostrar con matplotlib
     img_rgb = cv.cvtColor(img, cv.COLOR_BGR2RGB)
     plt.imshow(img_rgb)
-    plt.title('FIRTS ASSIGMENT RAÚL CABRERA ROZALÉN')
+
     plt.axis('off')
     plt.show()
 
