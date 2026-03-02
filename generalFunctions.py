@@ -13,6 +13,7 @@ def displayImage(img):
     if backend.startswith('agg') or not has_display:
         # No hay GUI: no mostrar y no guardar preview
         print(f"Entorno sin servidor gráfico (`{matplotlib.get_backend()}`) — no se mostrará ni se guardará ninguna vista previa.")
+
         return
 
     # Entorno gráfico: convertir BGR->RGB y mostrar con matplotlib
