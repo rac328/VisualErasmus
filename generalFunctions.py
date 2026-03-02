@@ -18,7 +18,6 @@ def displayImage(img):
     # Entorno gráfico: convertir BGR->RGB y mostrar con matplotlib
     img_rgb = cv.cvtColor(img, cv.COLOR_BGR2RGB)
     plt.imshow(img_rgb)
-    plt.title('FIRTS ASSIGMENT RAÚL CABRERA ROZALÉN')
     plt.axis('off')
     plt.show()
 
