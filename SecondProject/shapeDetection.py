@@ -42,15 +42,17 @@ def detect_circles(gray):
     return []
 
 def draw_shapes(frame, circles, focal_length, distance_cm):
-    """Draw all detected shapes and circles on the frame, with labels and sizes."""
-    # Draw circles
+
     for (x, y, r) in circles:
+        #draws the circle:
         cv2.circle(frame, (x, y), r, (0, 255, 0), 2)
+        #draws the center:
         cv2.circle(frame, (x, y), 2, (0, 0, 255), 3)
-        # Centroid is already (x,y)
+
         cv2.putText(frame, f"Circle", (x-40, y-20),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 2)
-        # Compute diameter in cm
+
+        #esto no furula muy bien
         diameter_pix = 2 * r
         diameter_cm = pixels_to_cm(diameter_pix, focal_length, distance_cm)
         cv2.putText(frame, f"d={diameter_cm:.1f}cm", (x-40, y-5),
