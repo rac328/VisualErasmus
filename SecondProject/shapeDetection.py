@@ -1,28 +1,31 @@
 import cv2
 import numpy as np
 import sys
+import os
 
-dist, mtx, newcameramtx = 0
 DISTANCE_CM = 30.0
 CIRCLE_PARAMS = dict(
     method=cv2.HOUGH_GRADIENT,
     dp=1,
-    minDist=50,
-    param1=50,  # Canny edge threshold
-    param2=30,  # Accumulator threshold
-    minRadius=10,
-    maxRadius=200
+    minDist=100,
+    param1=250,  # Canny edge threshold
+    param2=50,  # Accumulator threshold
+    minRadius=5,
+    maxRadius=300
 )
 
 
-def load_calibration(filepath):
+def load_calibration():
     """Load camera matrix and distortion coefficients from a numpy .npz file."""
     try:
-        data = np.load(filepath)
-        camera_matrix = data['mtx']
-        dist_coeffs = data['dist']
-        print("Calibration loaded successfully.")
-        return camera_matrix, dist_coeffs
+        ruta_archivo = os.path.join('savedata', 'dist.npy')
+        dist = np.load(ruta_archivo)
+        ruta_archivo = os.path.join('savedata', 'mtx.npy')
+        mtx = np.load(ruta_archivo)
+        ruta_archivo = os.path.join('savedata', 'newcameramtx.npy')
+        newcameramtx = np.load(ruta_archivo)
+
+        return dist, mtx, newcameramtx
     except Exception as e:
         print(f"Error loading calibration file: {e}")
         sys.exit(1)
@@ -38,7 +41,20 @@ def detect_circles(gray):
         return circles
     return []
 
-
+def draw_shapes(frame, circles, focal_length, distance_cm):
+    """Draw all detected shapes and circles on the frame, with labels and sizes."""
+    # Draw circles
+    for (x, y, r) in circles:
+        cv2.circle(frame, (x, y), r, (0, 255, 0), 2)
+        cv2.circle(frame, (x, y), 2, (0, 0, 255), 3)
+        # Centroid is already (x,y)
+        cv2.putText(frame, f"Circle", (x-40, y-20),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 2)
+        # Compute diameter in cm
+        diameter_pix = 2 * r
+        diameter_cm = pixels_to_cm(diameter_pix, focal_length, distance_cm)
+        cv2.putText(frame, f"d={diameter_cm:.1f}cm", (x-40, y-5),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 2)
 
 
 def pixels_to_cm(size_pixels, focal_length, distance_cm):
