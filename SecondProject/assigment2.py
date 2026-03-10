@@ -15,7 +15,7 @@ objp[:,:2] = np.mgrid[0:7,0:5].T.reshape(-1,2)
 objpoints = [] # 3d point in real world space
 imgpoints = [] # 2d points in image plane.
 
-images = glob.glob('photos/*.png')
+images = glob.glob('SecondProject/photos/*.png')
 
 for fname in images:
     img = cv.imread(fname)
@@ -35,15 +35,15 @@ for fname in images:
         # Draw and display the corners
         cv.drawChessboardCorners(img, (7,5), corners2, ret)
         cv.imshow('img', img)
-        cv.waitKey(1000)
+        cv.waitKey(250)
 
 ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
 
 
-ruta_archivo = os.path.join('savedata', 'mtx.npy')
+ruta_archivo = os.path.join('SecondProject/savedata', 'mtx.npy')
 np.save(ruta_archivo, mtx)
 
-path1 = os.path.join('./photos', 'photo_0001.png')
+path1 = os.path.join('SecondProject/photos', 'photo_0001.png')
 img = cv.imread(path1, cv.IMREAD_COLOR)
 h = img.shape[0]
 w = img.shape[1]
@@ -52,7 +52,7 @@ newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
 # undistort
 dst = cv.undistort(img, mtx, dist, None, newcameramtx)
 
-ruta_archivo = os.path.join('savedata', 'newcameramtx.npy')
+ruta_archivo = os.path.join('SecondProject/savedata', 'newcameramtx.npy')
 np.save(ruta_archivo,dist)
 
 # crop the image
