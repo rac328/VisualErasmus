@@ -3,12 +3,13 @@ import cv2 as cv
 import glob
 import generalFunctions
 
-images = glob.glob('SecondProject/shapes/*.jpg')
+images = glob.glob('SecondProject/shapes/*.png')
 
 dist, mtx, newcameramtx = shapeDetection.load_calibration()
 
 for file in images:
     img = cv.imread(file)
+    print(img.shape)
     h, w = img.shape[:2]
     print(h, w)
     hf=round(h/2.5)
@@ -25,7 +26,8 @@ for file in images:
 
     shapeDetection.draw_shapes(img, circles, focal_length, 30)
 
-    cv.imshow('Resultado', img)
+    # generalFunctions.displayImage(img) # no nos funcionaba
+    cv.imshow('Resultado', img )
     cv.waitKey(0)
     cv.destroyAllWindows()
 
