@@ -50,13 +50,13 @@ def draw_shapes(frame, circles, focal_length, distance_cm):
         cv2.circle(frame, (x, y), 2, (0, 0, 255), 3)
 
         cv2.putText(frame, f"Circle", (x-40, y-20),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 2)
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,0,255), 2)
 
         #esto no furula muy bien
         diameter_pix = 2 * r
         diameter_cm = pixels_to_cm(diameter_pix, focal_length, distance_cm)
         cv2.putText(frame, f"d={diameter_cm:.1f}cm", (x-40, y-5),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 2)
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 2)
 
 
 def pixels_to_cm(size_pixels, focal_length, distance_cm):
