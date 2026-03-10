@@ -3,7 +3,7 @@ import cv2 as cv
 import glob
 import generalFunctions
 
-images = glob.glob('shapes/*.jpg')
+images = glob.glob('SecondProject/shapes/*.jpg')
 
 dist, mtx, newcameramtx = shapeDetection.load_calibration()
 
@@ -20,6 +20,8 @@ for file in images:
 
     shapeDetection.draw_shapes(img, circles, focal_length, 30)
 
-    generalFunctions.displayImage(img)
+    cv.imshow('Resultado', img)
+    cv.waitKey(0)
+    cv.destroyAllWindows()
 
     #print(array)
