@@ -9,13 +9,13 @@ dist, mtx, newcameramtx = shapeDetection.load_calibration()
 
 for file in images:
     img = cv.imread(file)
-    print(img.shape)
-    h, w = img.shape[:2]
-    print(h, w)
-    hf=round(h/2.5)
-    wf=round(w/2.5)
-    print(hf,wf)
-    img = cv.resize(img, (wf, hf))
+    #print(img.shape)
+    #h, w = img.shape[:2]
+    #print(h, w)
+    #hf=round(h/2.5)
+    #wf=round(w/2.5)
+    # print(hf,wf)
+    #img = cv.resize(img, (wf, hf))
     # Use average focal length from the new (optimized) camera matrix
     fx = newcameramtx[0, 0]
     fy = newcameramtx[0, 1]

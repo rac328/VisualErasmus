@@ -43,7 +43,7 @@ ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, gray.sha
 ruta_archivo = os.path.join('SecondProject/savedata', 'mtx.npy')
 np.save(ruta_archivo, mtx)
 
-path1 = os.path.join('SecondProject/photos', 'photo_0005.png')
+path1 = os.path.join('SecondProject/photos', 'photo_0009.png')
 img = cv.imread(path1, cv.IMREAD_COLOR)
 h = img.shape[0]
 w = img.shape[1]
