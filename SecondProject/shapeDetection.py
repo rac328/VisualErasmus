@@ -18,11 +18,11 @@ CIRCLE_PARAMS = dict(
 def load_calibration():
     """Load camera matrix and distortion coefficients from a numpy .npz file."""
     try:
-        ruta_archivo = os.path.join('SecondProject/savedata', 'dist.npy')
+        ruta_archivo = os.path.join('savedata', 'dist.npy')
         dist = np.load(ruta_archivo)
-        ruta_archivo = os.path.join('SecondProject/savedata', 'mtx.npy')
+        ruta_archivo = os.path.join('savedata', 'mtx.npy')
         mtx = np.load(ruta_archivo)
-        ruta_archivo = os.path.join('SecondProject/savedata', 'newcameramtx.npy')
+        ruta_archivo = os.path.join('savedata', 'newcameramtx.npy')
         newcameramtx = np.load(ruta_archivo)
 
         return dist, mtx, newcameramtx

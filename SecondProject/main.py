@@ -1,9 +1,9 @@
-import shapeDetection
+from SecondProject import shapeDetection
 import cv2 as cv
 import glob
 import generalFunctions
 
-images = glob.glob('SecondProject/shapes/*.png')
+images = glob.glob('shapes/*.png')
 
 dist, mtx, newcameramtx = shapeDetection.load_calibration()
 
@@ -27,8 +27,9 @@ for file in images:
     shapeDetection.draw_shapes(img, circles, focal_length, 30)
 
     # generalFunctions.displayImage(img) # no nos funcionaba
-    cv.imshow('Resultado', img )
-    cv.waitKey(0)
+
+    generalFunctions.displayImage(img)
+    cv.waitKey(5000)
     cv.destroyAllWindows()
 
     #print(array)
