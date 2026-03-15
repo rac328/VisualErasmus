@@ -1,35 +1,26 @@
 from SecondProject import shapeDetection
 import cv2 as cv
 import glob
-import generalFunctions
+import os
 
 images = glob.glob('shapes/*.png')
+print(f" {len(images)} images")
 
 dist, mtx, newcameramtx = shapeDetection.load_calibration()
 
-for file in images:
+for i, file in enumerate(images):
     img = cv.imread(file)
-    #print(img.shape)
-    #h, w = img.shape[:2]
-    #print(h, w)
-    #hf=round(h/2.5)
-    #wf=round(w/2.5)
-    # print(hf,wf)
-    #img = cv.resize(img, (wf, hf))
-    # Use average focal length from the new (optimized) camera matrix
+    h, w = img.shape[:2]
     fx = newcameramtx[0, 0]
-    fy = newcameramtx[0, 1]
+    fy = newcameramtx[1, 1]
     focal_length = (fx + fy) / 2
+
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-
     circles = shapeDetection.detect_circles(gray)
+    shapeDetection.draw_shapes(img, circles, focal_length,10)
 
-    shapeDetection.draw_shapes(img, circles, focal_length, 30)
+    cv.imwrite(f'Output_{i + 1:02d}.png', img)
+    print(f" {len(circles)} circles detected")
 
-    # generalFunctions.displayImage(img) # no nos funcionaba
+print("Completed")
 
-    generalFunctions.displayImage(img)
-    cv.waitKey(5000)
-    cv.destroyAllWindows()
-
-    #print(array)
