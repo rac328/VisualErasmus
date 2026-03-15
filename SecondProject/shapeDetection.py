@@ -22,7 +22,7 @@ def load_calibration():
         dist = np.load(ruta_archivo)
         ruta_archivo = os.path.join('savedata', 'mtx.npy')
         mtx = np.load(ruta_archivo)
-        ruta_archivo = os.path.join('savedata', 'newcameramtx.npy')
+        ruta_archivo = os.path.join('savedata', 'newcameramtxreal.npy')
         newcameramtx = np.load(ruta_archivo)
 
         return dist, mtx, newcameramtx
@@ -52,8 +52,12 @@ def draw_shapes(frame, circles, focal_length, distance_cm):
         cv2.putText(frame, f"Circle", (x-40, y-20),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,0,255), 2)
 
-        #esto no furula muy bien
         diameter_pix = 2 * r
+
+        #Calculation distance from camera to circle knowing its diameter
+        #distance_cm=distance_cms(3.5,focal_length,diameter_pix)
+
+
         diameter_cm = pixels_to_cm(diameter_pix, focal_length, distance_cm)
         cv2.putText(frame, f"d={diameter_cm:.1f}cm", (x-40, y-5),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 2)
@@ -61,3 +65,6 @@ def draw_shapes(frame, circles, focal_length, distance_cm):
 
 def pixels_to_cm(size_pixels, focal_length, distance_cm):
     return (size_pixels * distance_cm) / focal_length
+
+#def distance_cms(real_diameter_cm,focal_length,size_pixels):
+    return (real_diameter_cm * focal_length) / size_pixels
