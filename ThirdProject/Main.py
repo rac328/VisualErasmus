@@ -2,23 +2,27 @@ import numpy as np
 import cv2 as cv
 import glob
 
-
 images = glob.glob('ThirdProject/photos/*.jpg')
 
 for fname in images:
     img = cv.imread(fname)
-    gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
+    corners, R = harris_detector(img)
+
+
+    gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)                    # OpenCV
     gray = np.float32(gray)
     dst = cv.cornerHarris(gray, 2, 3, 0.04)
 
-    # result is dilated for marking the corners, not important
-    dst = cv.dilate(dst, None)
+    img1 = img.copy()
+    img1[corners == 255] = [0, 0, 255]
 
-    # Threshold for an optimal value, it may vary depending on the image.
-    img[dst > 0.01 * dst.max()] = [0, 0, 255]
+    img2 = img.copy()
+    img2[dst > 0.01 * dst.max()] = [0, 255, 0]
 
-    cv.imshow('dst', img)
-    if cv.waitKey(0) & 0xff == 27:
-        cv.destroyAllWindows()
+    cv.imshow('Manual Harris', img1)
+    cv.imshow('OpenCV Harris', img2)
 
+    cv.waitKey(0)
+
+cv.destroyAllWindows()
