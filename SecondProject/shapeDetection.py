@@ -68,3 +68,45 @@ def pixels_to_cm(size_pixels, focal_length, distance_cm):
 
 #def distance_cms(real_diameter_cm,focal_length,size_pixels):
     return (real_diameter_cm * focal_length) / size_pixels
+
+def detect_squares(img):
+    
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+    
+    # para detectar las bordes
+    edges = cv2.Canny(blurred, 50, 150)
+    
+    # contornos
+    contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+    squares = []
+    for cnt in contours:
+        # aproximar el contorno al poligonl
+        peri = cv2.arcLength(cnt, True)
+        approx = cv2.approxPolyDP(cnt, 0.04 * peri, True)
+        
+        #como es un cuadrado, tiene que haber cuatro vértices
+        if len(approx) == 4:
+            # Compute side lengths and angles
+            pts = approx.reshape(-1, 2)
+            edges_dist = []
+            for i in range(4):
+                p1 = pts[i]
+                p2 = pts[(i+1)%4]
+                edges_dist.append(np.linalg.norm(p2 - p1))
+            
+            # comprueba si todos los bordes miden lo mismo 
+            max_side = max(edges_dist)
+            min_side = min(edges_dist)
+            if max_side / min_side < 1.2:  # simplemente es para la tolerancia 
+                squares.append(approx)
+    
+  #dibuja los rectángulos reconocidos 
+    result = img.copy()
+    cv2.drawContours(result, squares, -1, (0, 255, 0), 3)
+    cv2.imshow('Detected Squares', result)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    
+    return squares
