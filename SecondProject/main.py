@@ -17,7 +17,7 @@ for i, file in enumerate(images):
 
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     circles = shapeDetection.detect_circles(gray)
-    shapeDetection.draw_shapes(img, circles, focal_length,10)
+    shapeDetection.draw_shapes(img, circles, focal_length,47)
 
     cv.imwrite(f'Output_{i + 1:02d}.png', img)
     print(f" {len(circles)} circles detected")
