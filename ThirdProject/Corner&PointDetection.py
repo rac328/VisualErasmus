@@ -9,13 +9,13 @@ def convolve(image, kernel):
     pad_h = 1
     pad_w = 1
 
-    padded = np.pad(image, ((pad_h, pad_h), (pad_w, pad_w)), mode='constant')
-    output = np.zeros_like(image)
+    padded = np.pad(image, ((pad_h, pad_h), (pad_w, pad_w)), mode='constant') #Adds white borders to do Kernel
+    output = np.zeros_like(image)#Creates Output image
 
     for i in range(h):
-        for j in range(w):
-            region = padded[i:i+kh, j:j+kw]
-            output[i, j] = np.sum(region * kernel)
+        for j in range(w): #Goes through every pixel
+            region = padded[i:i+kh, j:j+kw] #extracts 3*3 per pixel
+            output[i, j] = np.sum(region * kernel) #
 
     return output
 
