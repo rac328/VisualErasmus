@@ -15,7 +15,7 @@ def convolve(image, kernel):
     for i in range(h):
         for j in range(w): #Goes through every pixel
             region = padded[i:i+kh, j:j+kw] #extracts 3*3 per pixel
-            output[i, j] = np.sum(region * kernel) #
+            output[i, j] = np.sum(region * kernel) #xd
 
     return output
 
