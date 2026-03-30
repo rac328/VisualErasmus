@@ -21,10 +21,17 @@ def convolve(image, kernel):
 
 #Gaussian Kernel
 def gaussian_kernel(size=3, sigma=1):
+    #size (int): Side length of the square kernel.
+    #sigma (float): Standard deviation of the Gaussian distribution.
+
+    #creates an array of evenly spaced numbers over a specified interval.
     ax = np.linspace(-(size//2), size//2, size)
+    #creates the matrix from the prevoiuos array
     xx, yy = np.meshgrid(ax, ax)
 
+    #gaussian formula
     kernel = np.exp(-(xx**2 + yy**2) / (2 * sigma**2))
+    #normalization of the kernel
     kernel /= np.sum(kernel)
 
     return kernel
@@ -33,7 +40,7 @@ def gaussian_kernel(size=3, sigma=1):
 #Harris Detector
 def harris_detector(img, k=0.04, threshold=0.01):
 
-    # 1. Grayscale
+    # 1. Grayscale to avoid choosing which rgb channel use
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     gray = np.float32(gray)
 
