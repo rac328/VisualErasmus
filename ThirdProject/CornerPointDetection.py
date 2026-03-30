@@ -26,7 +26,7 @@ def gaussian_kernel(size=3, sigma=1):
 
     #creates an array of evenly spaced numbers over a specified interval.
     ax = np.linspace(-(size//2), size//2, size)
-    #creates the matrix from the prevoiuos array
+    #creates the matrix from the previous array
     xx, yy = np.meshgrid(ax, ax)
 
     #gaussian formula
