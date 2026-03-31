@@ -17,13 +17,15 @@ for fname in images:
     corners, R = cp.harris_detector(img)
 
 
-    gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)                    # OpenCV
+    gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)# OpenCV
     gray = np.float32(gray)
     dst = cv.cornerHarris(gray, 2, 3, 0.04)
 
+    #rojo
     img1 = img.copy()
     img1[corners == 255] = [0, 0, 255]
 
+    #verde
     img2 = img.copy()
     img2[dst > 0.01 * dst.max()] = [0, 255, 0]
 
